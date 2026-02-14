@@ -1,0 +1,52 @@
+@font-face {
+    font-family: "geist";
+    src: url("../fonts/geist/Geist-Regular.ttf");
+}
+
+
+body {
+    background-color: rgb(15, 15, 15);
+}
+
+p {
+    color: rgb(150, 150, 150);
+    font-family: "geist", sans-serif;
+    padding-top: 10%;
+    padding-left: 8%;
+    font-size: 1rem;
+    font-weight: 200;
+    animation: fadeUp 1s ease-out;
+}
+
+
+.hero {
+  height: 100vh; /* full screen height */
+
+  background-image: url("../images/hero.png");
+  background-size: cover;        /* fill screen */
+  background-position: center;   /* keep center visible */
+  background-repeat: no-repeat;  /* avoid tiling */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.hero-title {
+    font-size: 4rem;
+    color: rgb(150, 150, 150);
+    font-family: "geist", sans-serif;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: -0.3rem;
+    animation: fadeUp 1s ease-out;
+}
+
+.accent {
+    color: white
+}
+
+
+
+
