@@ -3,7 +3,6 @@
     "I enjoy coding.",
     "Circuit boards make me excited.",
     "I make electrons behave."
-
   ];
 
   const typedText = document.getElementById("typed-text");

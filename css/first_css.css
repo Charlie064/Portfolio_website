@@ -3,6 +3,22 @@
     src: url("../fonts/geist/Geist-Regular.ttf");
 }
 
+@font-face {
+    font-family: "google-sans-code";
+    src: url("../fonts/google_sans/GoogleSansCode-VariableFont_wght.ttf");
+}
+
+
+
+h1 {
+    font-size: 4rem;
+    color: rgb(150, 150, 150);
+    font-family: "geist", sans-serif;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: -0.3rem;
+    animation: fadeUp 1s ease-out;
+}
 
 body {
     background-color: rgb(15, 15, 15);
@@ -28,14 +44,16 @@ p {
   background-repeat: no-repeat;  /* avoid tiling */
 
   display: flex;
+  flex-direction: column; 
   justify-content: center;
   align-items: center;
 }
 
 
-.hero-title {
+.hero-title 
+.big-title {
     font-size: 4rem;
-    color: rgb(150, 150, 150);
+    color: rgb(221, 172, 172);
     font-family: "geist", sans-serif;
     text-align: center;
     font-weight: 700;
@@ -46,7 +64,14 @@ p {
 .accent {
     color: white
 }
+.noaccent {
+    color:rgb(150, 150, 150)
+}
+#typed-text {
+    font-family: "google-sans-code", sans-serif;
+}
 
-
-
-
+#donut-output {
+    color: white !important;
+  font-family: monospace;
+}

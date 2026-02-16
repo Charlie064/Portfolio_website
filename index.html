@@ -1,38 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <!-- Do not use any element that displays content on the webpage in head. -->
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Carl Sandvall</title>
-
-        <link rel="stylesheet" href="./css/first_css.css">
-        <link rel="stylesheet" href="./css/text_animations.css">
-        
-    </head>
-
-
-
-    <body>
-        <!-- Display content to user-->
-        <section class="hero">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carl Sandvall</title>
+    <link rel="stylesheet" href="./css/first_css.css">
+    <link rel="stylesheet" href="./css/text_animations.css">
+    <link rel="stylesheet" href="https://pyscript.net/releases/2026.2.1/core.css" />
+    <script type="module" src="https://pyscript.net/releases/2026.2.1/core.js"></script>
+</head>
+<body>
+    <!-- Hero section -->
+    <section class="hero">
         <h1 class="hero-title">
-            <span>Hello, I'm</span><span class="accent"> Carl Sandvall.</span><br />
-            <span id="typed-text"></span><span class="cursor">|</span>
+            <span class="noaccent">Hello, I'm</span>
+            <span class="accent"> Carl Sandvall.</span><br />
+            <span class="noaccent"id="typed-text"></span>
+            <span class="noaccent">|</span>
         </h1>
-        </section>
+    </section>
 
-
-
-        
+    <!-- Links and image -->
+    <section>
         <p>
             <a href="https://www.youtube.com/@CharlieElectronics" target="_blank" rel="noopener">My YouTube channel</a>
             <a href="./pages/about.html">About</a>
         </p>
         <img src="./images/funny_monkey.jpg">
+    </section>
 
-        <script>console.log("What the ligma")</script>
-        <script src=javascript/typing_animation.js></script>
+    <!-- Donut section -->
+    <section class="hero">
+        <h1 class="big-title">Donut code</h1>
+        <!-- Torus output -->
+        <pre id="donut-output"></pre>
+    </section>
 
-    </body>
+    <!-- Scripts -->
+    <script src="javascript/typing_animation.js"></script>
+
+    <!-- PyScript -->
+    <script type="py" config="./python_scripts/config.json" src="./python_scripts/main.py"></script>
+</body>
 </html>
