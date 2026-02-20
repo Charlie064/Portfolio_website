@@ -11,14 +11,17 @@
 </head>
 <body>
     <!-- Hero section -->
-    <section class="hero">
-        <h1 class="hero-title">
-            <span class="noaccent">Hello, I'm</span>
-            <span class="accent"> Carl Sandvall.</span><br />
-            <span class="noaccent"id="typed-text"></span>
-            <span class="noaccent">|</span>
-        </h1>
-    </section>
+    <header class="site-hero">
+        <div class="hero-inner">
+            <h1 class="hero-heading">
+                <span class="noaccent">Hello, I'm</span>
+                <span class="accent"> Carl Sandvall</span>
+            </h1>
+            <p class="hero-tagline">
+                <span id="typed-text"></span><span class="cursor">|</span>
+            </p>
+        </div>
+    </header>
 
     <!-- Links and image -->
     <section>
@@ -29,17 +32,11 @@
         <img src="./images/funny_monkey.jpg">
     </section>
 
-    <!-- Donut section -->
-    <section class="hero">
-        <h1 class="big-title">Donut code</h1>
-        <!-- Torus output -->
-        <pre id="donut-output"></pre>
-    </section>
-
     <!-- Scripts -->
     <script src="javascript/typing_animation.js"></script>
 
-    <!-- PyScript -->
+    <!-- PyScript 
     <script type="py" config="./python_scripts/config.json" src="./python_scripts/main.py"></script>
+    -->
 </body>
 </html>

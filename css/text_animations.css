@@ -15,6 +15,3 @@
   25%, 75% { opacity: 0; }
 }
 
-.cursor {
-  animation: blink 0.7s infinite;
-}
