@@ -71,55 +71,62 @@ function drawTriangleWave() {
     const path = document.createElementNS(svgNS, "path");
     path.classList.add("wave-ch2");
     path.setAttribute("d", dataPath);
-    path.setAttribute("stroke", "magenta");
+    path.setAttribute("stroke", "cyan");
     path.setAttribute("stroke-width", 3);
     path.setAttribute("vector-effect", "non-scaling-stroke");
     path.setAttribute("fill", "none");
     waveGroup.appendChild(path);
 }
 
-function drawBackgroundLines(numGridX=10, numGridY=10) {
+
+function drawBackgroundLines(numGridX=10, numGridY=10, extra=10) {
+    const totalGridX = numGridX + extra;
+    const totalGridY = numGridY + extra;
+
+    // Extend horizontally and vertically beyond the original coordinate space
+    const minX = -width * 0.5;
+    const maxX = width * 1.5;
+    const minY = -height * 0.5;
+    const maxY = height * 1.5;
+
+    const stepX = width / numGridX;
+    const stepY = height / numGridY;
+
 // Vertical lines
-for (let i = 0; i <= numGridX; i++) {
-    const x = (i / numGridX) * width;
-    const line = document.createElementNS(svgNS, "line");
-    line.setAttribute("x1", x);
-    line.setAttribute("y1", 0);
-    line.setAttribute("x2", x);
-    line.setAttribute("y2", height);
-    line.setAttribute("stroke", "rgba(255,255,255,0.1)");
-    if (i % 2 == 0) {
-        line.setAttribute("stroke-width", 5);
+    for (let x = minX; x <= maxX; x += stepX) {    
+        const line = document.createElementNS(svgNS, "line");
+        line.setAttribute("x1", x);
+        line.setAttribute("y1", minY);
+        line.setAttribute("x2", x);
+        line.setAttribute("y2", maxY);
+        line.setAttribute("stroke", "rgba(255,255,255,0.1)");
+        if (Math.round(x/stepX) % 4 == 0) {
+            line.setAttribute("stroke-width", 5);
+        }
+        else {
+            line.setAttribute("stroke-width", 2);
+        }
         line.setAttribute("vector-effect", "non-scaling-stroke");   
+        gridGroup.appendChild(line);
     }
-    else {
-        line.setAttribute("stroke-width", 2);
-        line.setAttribute("vector-effect", "non-scaling-stroke");
-    }
-    gridGroup.appendChild(line);
-}
 
-// Horizontal lines
-for (let i = 0; i <= numGridY; i++) {
-    const y = (i / numGridY) * height;
-    const line = document.createElementNS(svgNS, "line");
-    line.setAttribute("x1", 0);
-    line.setAttribute("y1", y);
-    line.setAttribute("x2", width);
-    line.setAttribute("y2", y);
-    line.setAttribute("stroke", "rgba(255,255,255,0.1)");
-    if (i % 5 == 0) {
-        line.setAttribute("stroke-width", 10);
+    // Horizontal lines
+    for (let y = minY; y <= maxY; y += stepY) {    
+        const line = document.createElementNS(svgNS, "line");
+        line.setAttribute("x1", minX);
+        line.setAttribute("y1", y);
+        line.setAttribute("x2", maxX);
+        line.setAttribute("y2", y);
+        line.setAttribute("stroke", "rgba(255,255,255,0.1)");
+        if (Math.round(y/stepY) % 5 == 0) {
+            line.setAttribute("stroke-width", 10);
+        }
+        else {
+            line.setAttribute("stroke-width", 3);
+        }
         line.setAttribute("vector-effect", "non-scaling-stroke");
+        gridGroup.appendChild(line);
     }
-    else {
-        line.setAttribute("stroke-width", 3);
-        line.setAttribute("vector-effect", "non-scaling-stroke");
-    }
-    gridGroup.appendChild(line);
-}
-
-svg.appendChild(gridGroup);
 }
 
 
@@ -177,29 +184,75 @@ document.addEventListener("DOMContentLoaded", () => {
     const wave1 = document.querySelector(".wave-ch1");
     const wave2 = document.querySelector(".wave-ch2");
 
- function activateChannel(channel) {
-    if (channel === 1) {
-        wave1.style.opacity = "1";
-        wave2.style.opacity = "0";
+    const scopeImage = document.querySelector(".scope-image");
 
-        animatePath(wave1, 3000);
+    function activateChannel(channel) {
+        if (channel === 1) {
+            wave1.style.opacity = "1";
+            wave2.style.opacity = "0";
 
-        ch1Btn.classList.add("active");
-        ch2Btn.classList.remove("active");
-    } else {
-        wave1.style.opacity = "0";
-        wave2.style.opacity = "1";
+            animatePath(wave1, 3000);
 
-        animatePath(wave2, 3000);
+            ch1Btn.classList.add("active");
+            ch2Btn.classList.remove("active");
 
-        ch1Btn.classList.remove("active");
-        ch2Btn.classList.add("active");
+            scopeImage.style.filter = "drop-shadow(0 0 5rem rgba(255,255,0,0.5))";
+        } 
+        else {
+            wave1.style.opacity = "0";
+            wave2.style.opacity = "1";
+
+            animatePath(wave2, 3000);
+
+            ch1Btn.classList.remove("active");
+            ch2Btn.classList.add("active");
+
+            scopeImage.style.filter = "drop-shadow(0 0 5rem rgba(0,255,255,0.5))";
+        }
     }
-}
 
     ch1Btn.addEventListener("click", () => activateChannel(1));
     ch2Btn.addEventListener("click", () => activateChannel(2));
-
-    // Default state
     activateChannel(1);
-});
+
+    // --- Scroll-dependent zoom ---
+    const svg = document.querySelector(".oscilloscope-plot");
+    const fullView = { x: 0, y: 0, w: width, h: height };
+    const firstPeakX = (width / numPeriods) / 4;
+    const zoomView = { x: firstPeakX - 150, y: centerY - amplitude, w: 300, h: amplitude * 2 };
+    const scrollDistance = 500; // scroll pixels for full zoom
+
+    // Define start point: when animation begins (scrollY of page)
+    const startScroll = document.querySelector(".oscilloscope-section").offsetTop;
+
+    // Linear interpolation
+    function lerp(a, b, t) {
+        return a + (b - a) * t;
+    }
+
+    function setViewBox(view) {
+        svg.setAttribute("viewBox", `${view.x} ${view.y} ${view.w} ${view.h}`);
+    }
+
+    function updateViewBoxOnScroll() {
+        const scrollY = window.scrollY;
+
+        // t = 0 -> scrollY = startScroll, t = 1 -> scrollY = startScroll + scrollDistance
+        let t = (scrollY - startScroll) / scrollDistance;
+        t = Math.min(Math.max(t, 0), 1); // clamp 0 -> 1
+
+        const view = {
+            x: lerp(fullView.x, zoomView.x, t),
+            y: lerp(fullView.y, zoomView.y, t),
+            w: lerp(fullView.w, zoomView.w, t),
+            h: lerp(fullView.h, zoomView.h, t),
+        };
+
+        setViewBox(view);
+    }
+
+    window.addEventListener("scroll", updateViewBoxOnScroll);
+
+    // Start at full view
+    setViewBox(fullView);
+    });

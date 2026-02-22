@@ -16,13 +16,22 @@
     <section class="site-hero">
         <div class="hero-inner">
             <h1 class="hero-heading">
-                <span class="noaccent">Hello, I'm</span>
-                <span class="accent"> Carl Sandvall</span>
+                <span class="text-noaccent">Hello, I'm</span>
+                <span class="text-accent"> Carl Sandvall</span>
             </h1>
-            <p class="hero-tagline">
+            <p class="hero-tagline text-noaccent">
                 <span id="typed-text"></span><span class="cursor">█</span>
             </p>
         </div>
+        <button class="scroll-indicator" aria-label="Scroll down">
+            <!-- You will draw your SVG here -->
+        <svg class="scroll-icon" viewBox="0 0 24 24">
+            <line x1="6"  y1="9"  x2="12" y2="15" />
+            <line x1="18" y1="9"  x2="12" y2="15" />
+        </svg>
+        
+            </svg>
+        </button>
     </section>
 
     <!-- Oscilloscope -->
@@ -40,10 +49,8 @@
                     <button id="ch2-btn" class="scope-btn">CH 2</button>
                 </div>
             </div>
-
         </div>
     </section>
-    <script src="javascript/oscilloscope_svg.js"></script>
 
 
     <!-- Other stuff -->
@@ -51,6 +58,8 @@
 
     <!-- Scripts -->
     <script src="javascript/typing_animation.js"></script>
+    <script src="javascript/scroll.js"></script>
+    <script src="javascript/oscilloscope_svg.js"></script>
 
 
 </body>

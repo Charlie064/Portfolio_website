@@ -10,6 +10,24 @@
     src: url("../fonts/google_sans/GoogleSansCode-VariableFont_wght.ttf");
 }
 
+/* KEYFRAMES */
+@keyframes jiggle {
+
+    /* Rest phase */
+    0%   { transform: translateX(-50%) translateY(0); }
+    70%  { transform: translateX(-50%) translateY(0); }
+
+    /* First bounce */
+    75%  { transform: translateX(-50%) translateY(8px); }
+    80%  { transform: translateX(-50%) translateY(0); }
+
+    /* Second bounce */
+    85%  { transform: translateX(-50%) translateY(8px); }
+    90%  { transform: translateX(-50%) translateY(0); }
+
+    /* Rest again */
+    100% { transform: translateX(-50%) translateY(0); }
+}
 
 /* BASE STYLES */
 
@@ -28,7 +46,6 @@ h1 {
 }
 
 p {
-    color: rgb(150, 150, 150);
     font-family: "geist", sans-serif;
     font-size: 1rem;
     font-weight: 200;
@@ -82,37 +99,69 @@ p {
 
 /* TEXT STYLES */
 
-.accent {
-    color: white;
+.text-accent {
+    color: #ffff80;
 }
 
-.noaccent {
-    color: rgb(150, 150, 150);
+.text-noaccent {
+    color: rgb(145, 200, 200);
+}
+
+/* SCROLL INDICATOR */
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    padding: 1rem;
+    opacity: 0.7;
+    
+    animation: jiggle 4s ease-in-out infinite;
+}
+
+.scroll-indicator:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+}
+
+.scroll-icon {
+    width: 4rem;
+    height: 4rem;
+    stroke: #ffff80;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
 }
 
 /* OSCILLOSCOPE SECTION */
 
 .oscilloscope-section {
+
     position: relative;
-    width: 100%;
-    padding: 10rem 0; 
-    background-color: rgb(0,0,0);
+    min-height: 500vh;
+    padding: 10rem 0;
+    background-color: black;
 }
 .scope-wrapper {
-    position: relative;
+    position: sticky;
+    top: 50%;
+    transform: translateY(-50%);
     width: 80vw;
     max-width: 1000px;           /* prevent excessive scaling on huge screens */
     margin: 10rem auto;
     animation: fadeUp 2s ease-out;
-
 }
 
 .scope-image {
     width: 100%;
     height: auto;
     display: block;              /* remove inline gaps */
-    box-shadow:0 0 5rem 0.5rem rgba(255, 0, 255, 0.5);
-
 }
 
 .scope-screen {
@@ -126,6 +175,7 @@ p {
     background-color: black;
     border-radius: 0.2rem;
     overflow: hidden;            /* clip SVG and buttons inside */
+    transition: box-shadow 0.3s ease;
 }
 
 .oscilloscope-plot {
@@ -152,7 +202,7 @@ p {
     background: transparent;
     cursor: pointer;
     transition: all 0.2s ease;
-    opacity: 0.6;
+    opacity: 0.7;
     box-shadow: 4px 4px black;
 }
 
@@ -162,8 +212,8 @@ p {
 }
 
 #ch2-btn {
-    color: magenta;
-    border-color: magenta;
+    color: cyan;
+    border-color: cyan;
 }
 
 #ch1-btn.active {
@@ -173,7 +223,7 @@ p {
 }
 
 #ch2-btn.active {
-    background: magenta;
+    background: cyan;
     color: black;
     opacity: 1;
 }
