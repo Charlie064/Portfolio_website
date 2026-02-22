@@ -35,6 +35,7 @@ p {
     animation: fadeUp 1s ease-out;
 }
 
+/* HEADER SECTION */
 
 /* HERO SECTION */
 .site-hero {
@@ -51,19 +52,19 @@ p {
 }
 
 .hero-inner {
-    display: inline-block;   /* shrink to heading width */
-    text-align: center;      /* center heading text */
+    display: inline-block;
+    text-align: center;
 }
 
 .hero-heading {
-    display: inline-block;   /* shrink to text width */
+    display: inline-block;
     margin: 0;
 }
 
 
 .hero-tagline,
 .cursor {
-    text-align: left;        /* align to left edge of heading */
+    text-align: left;
     overflow-wrap: break-word;
     font-size: 2rem;
     font-family: "google-sans-code", monospace;
@@ -75,7 +76,7 @@ p {
 }
 
 .cursor {
-    animation: blink 0.7s infinite;
+    animation: blink 1.2s infinite;
 }
 
 
@@ -89,55 +90,72 @@ p {
     color: rgb(150, 150, 150);
 }
 
-/* Oscillioscope */
+/* OSCILLOSCOPE SECTION */
+
 .oscilloscope-section {
-    height: 200vh;
+    position: relative;
+    width: 100%;
+    padding: 10rem 0; 
+    background-color: rgb(0,0,0);
+}
+.scope-wrapper {
+    position: relative;
+    width: 80vw;
+    max-width: 1000px;           /* prevent excessive scaling on huge screens */
+    margin: 10rem auto;
+    animation: fadeUp 2s ease-out;
+
 }
 
-.oscilloscope-container {
-    width: 60vw;
-    height: 50vh;
-    background: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 2rem auto;
-    border: 3px solid #555;
+.scope-image {
+    width: 100%;
+    height: auto;
+    display: block;              /* remove inline gaps */
+    box-shadow:0 0 5rem 0.5rem rgba(255, 0, 255, 0.5);
 
-    position: sticky;
-    top: 20vh;
 }
 
-.oscilloscope {
-    width: 90%;
-    height: 90%;
-    
+.scope-screen {
+    position: absolute;          /* overlay on top of image */
+
+    top: 8%;                  /* match the screen area of oscilloscope.png */
+    left: 2.4%;
+    width: 55%;
+    height: 70%;
+
+    background-color: black;
+    border-radius: 0.2rem;
+    overflow: hidden;            /* clip SVG and buttons inside */
 }
 
-/* Button container */
+.oscilloscope-plot {
+    width: 100%;
+    height: 100%;
+}
+
+
 .scope-controls {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
+    position: absolute;           /* stay on top of wrapper */
+    top: 4%;
+    right: 2%;
     display: flex;
     gap: 1rem;
+    z-index: 10;
 }
-
-/* Base button style */
 .scope-btn {
     font-family: "google-sans-code", monospace;
     font-size: 1rem;
     font-weight: 700;
     padding: 0.4rem 1rem;
-    border-radius: 0.7rem;
+    border-radius: 1rem;
     border: 0.2rem solid;
     background: transparent;
     cursor: pointer;
     transition: all 0.2s ease;
     opacity: 0.6;
+    box-shadow: 4px 4px black;
 }
 
-/* Channel colors */
 #ch1-btn {
     color: yellow;
     border-color: yellow;
@@ -147,7 +165,6 @@ p {
     color: magenta;
     border-color: magenta;
 }
-
 
 #ch1-btn.active {
     background: yellow;

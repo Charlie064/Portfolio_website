@@ -1,4 +1,4 @@
-const svg = document.querySelector(".oscilloscope");
+const svg = document.querySelector(".oscilloscope-plot");
 const svgNS = "http://www.w3.org/2000/svg";
 
 const waveGroup = document.createElementNS(svgNS, "g");
@@ -17,7 +17,7 @@ const height = 1000;
 svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
 
 const centerY = height / 2;
-const amplitude = height / 2;
+const amplitude = 0.7 * height / 2;
 const numPeriods = 5
 const frequency = 2 * Math.PI * numPeriods / width
 const period = 2*Math.PI/frequency
@@ -122,6 +122,47 @@ for (let i = 0; i <= numGridY; i++) {
 svg.appendChild(gridGroup);
 }
 
+
+function animatePath(path, duration = 300) {
+    const length = path.getTotalLength();
+
+    // Clear any previous transition
+    path.style.transition = "none";
+
+    // Set up dash pattern
+    path.style.strokeDasharray = length;
+    path.style.strokeDashoffset = length;
+
+    // Force reflow so styles apply immediately
+    path.getBoundingClientRect();
+
+    // Animate
+    path.style.transition = `stroke-dashoffset ${duration}ms linear`;
+    path.style.strokeDashoffset = "0";
+}
+
+
+function activateChannel(channel) {
+    if (channel === 1) {
+        wave1.style.opacity = "1";
+        wave2.style.opacity = "0";
+
+        animatePath(wave1, 1200);
+
+        ch1Btn.classList.add("active");
+        ch2Btn.classList.remove("active");
+    } else {
+        wave1.style.opacity = "0";
+        wave2.style.opacity = "1";
+
+        animatePath(wave2, 1200);
+
+        ch1Btn.classList.remove("active");
+        ch2Btn.classList.add("active");
+    }
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
 
     // 1. Draw everything first
@@ -136,22 +177,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const wave1 = document.querySelector(".wave-ch1");
     const wave2 = document.querySelector(".wave-ch2");
 
-    // 3. Channel activation logic
-    function activateChannel(channel) {
-        if (channel === 1) {
-            wave1.style.opacity = "1";
-            wave2.style.opacity = "0";
+ function activateChannel(channel) {
+    if (channel === 1) {
+        wave1.style.opacity = "1";
+        wave2.style.opacity = "0";
 
-            ch1Btn.classList.add("active");
-            ch2Btn.classList.remove("active");
-        } else {
-            wave1.style.opacity = "0";
-            wave2.style.opacity = "1";
+        animatePath(wave1, 3000);
 
-            ch1Btn.classList.remove("active");
-            ch2Btn.classList.add("active");
-        }
+        ch1Btn.classList.add("active");
+        ch2Btn.classList.remove("active");
+    } else {
+        wave1.style.opacity = "0";
+        wave2.style.opacity = "1";
+
+        animatePath(wave2, 3000);
+
+        ch1Btn.classList.remove("active");
+        ch2Btn.classList.add("active");
     }
+}
 
     ch1Btn.addEventListener("click", () => activateChannel(1));
     ch2Btn.addEventListener("click", () => activateChannel(2));

@@ -9,32 +9,40 @@
 
 </head>
 <body>
+    <header>
+
+    </header>
     <!-- Hero section -->
-    <header class="site-hero">
+    <section class="site-hero">
         <div class="hero-inner">
             <h1 class="hero-heading">
                 <span class="noaccent">Hello, I'm</span>
                 <span class="accent"> Carl Sandvall</span>
             </h1>
             <p class="hero-tagline">
-                <span id="typed-text"></span><span class="cursor">|</span>
+                <span id="typed-text"></span><span class="cursor">█</span>
             </p>
         </div>
-    </header>
+    </section>
 
     <!-- Oscilloscope -->
     <section class="oscilloscope-section">
-    <div class="oscilloscope-container">
-        <svg class="oscilloscope" viewBox="0 0 1000 1000" preserveAspectRatio="none"></svg>
-        <div class="scope-controls">
-            <div class="scope-controls">
-            <button id="ch1-btn" class="scope-btn active">CH 1</button>
-            <button id="ch2-btn" class="scope-btn">CH 2</button>
-            </div>
-        </div>
+        <div class="scope-wrapper">
+            <img src="../images/oscilloscope.png" class="scope-image">
+            <div class="scope-screen">
+                <svg class="oscilloscope-plot"
+                    viewBox="0 0 1000 1000"
+                    preserveAspectRatio="none">
+                </svg>
 
-    </div>
-</section>
+                <div class="scope-controls">
+                    <button id="ch1-btn" class="scope-btn active">CH 1</button>
+                    <button id="ch2-btn" class="scope-btn">CH 2</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
     <script src="javascript/oscilloscope_svg.js"></script>
 
 
